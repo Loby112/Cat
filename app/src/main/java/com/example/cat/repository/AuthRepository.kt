@@ -1,5 +1,6 @@
 package com.example.cat.repository
 
+import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseUser
@@ -11,19 +12,23 @@ class AuthRepository {
     val errorMessageLiveData: MutableLiveData<String> = MutableLiveData()
     val userLiveData: MutableLiveData<FirebaseUser> = MutableLiveData<FirebaseUser>()
     val user = auth.currentUser
+
+
     fun login(email: String, password: String){
         auth.signInWithEmailAndPassword(email, password).
         addOnCompleteListener{task ->
             if(task.isSuccessful()){
-                userLiveData.postValue(user)
+                userLiveData.value = user
             }
             else {
-                /* val message = response.code().toString() + " " + response.message()
-                errorMessageLiveData.postValue(message)
-                Log.d("APPLE", message)'
-
-                 */
+                errorMessageLiveData.value = task.exception?.message.toString()
+                Log.w(TAG, "signInWithEmail:failure", task.exception)
             }
         }
+    }
+
+    fun signout(){
+        auth.signOut()
+        userLiveData.value = auth.currentUser
     }
 }
