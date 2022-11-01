@@ -22,11 +22,24 @@
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_second">
 
+        <argument
+            android:name="position"
+            app:argType="integer"/>
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
+            android:id="@+id/action_SecondFragment_to_ThirdFragment"
+            app:destination="@id/third" />
+    </fragment>
+    <fragment
+        android:id="@+id/third"
+        android:name="com.example.cat.ThirdFragment"
+        android:label="fragment_third"
+        tools:layout="@layout/fragment_third" >
+        <action
+            android:id="@+id/action_third_to_FirstFragment"
             app:destination="@id/FirstFragment" />
         <argument
             android:name="position"
             app:argType="integer"/>
+
     </fragment>
 </navigation>
