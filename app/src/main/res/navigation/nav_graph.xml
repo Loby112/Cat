@@ -8,9 +8,12 @@
     <fragment
         android:id="@+id/FirstFragment"
         android:name="com.example.cat.FirstFragment"
-        android:label="@string/first_fragment_label"
+        android:label="Forsvunde Katte"
         tools:layout="@layout/fragment_first">
 
+        <action
+            android:id="@+id/action_FirstFragment_to_third"
+            app:destination="@id/third" />
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
@@ -19,20 +22,17 @@
     <fragment
         android:id="@+id/SecondFragment"
         android:name="com.example.cat.SecondFragment"
-        android:label="@string/second_fragment_label"
+        android:label="Login"
         tools:layout="@layout/fragment_second">
 
         <argument
             android:name="position"
             app:argType="integer"/>
-        <action
-            android:id="@+id/action_SecondFragment_to_ThirdFragment"
-            app:destination="@id/third" />
     </fragment>
     <fragment
         android:id="@+id/third"
         android:name="com.example.cat.ThirdFragment"
-        android:label="fragment_third"
+        android:label="Kat Information"
         tools:layout="@layout/fragment_third" >
         <action
             android:id="@+id/action_third_to_FirstFragment"
@@ -40,6 +40,5 @@
         <argument
             android:name="position"
             app:argType="integer"/>
-
     </fragment>
 </navigation>

@@ -44,7 +44,7 @@ class FirstFragment : Fragment() {
             if (cats != null) {
                 val adapter = MyAdapter(cats) { position ->
                     val action =
-                        FirstFragmentDirections.actionFirstFragmentToSecondFragment(position)
+                        FirstFragmentDirections.actionFirstFragmentToThird(position)
                     findNavController().navigate(action /*R.id.action_FirstFragment_to_SecondFragment*/)
                 }
                 // binding.recyclerView.layoutManager = LinearLayoutManager(activity)

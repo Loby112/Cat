@@ -45,12 +45,13 @@ class SecondFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val currentUser = userViewModel.userLiveData.value
 
-        if (currentUser != null) {
+        /*if (currentUser != null) {
             //binding.emailInputField.setText(currentUser.email) // half automatic login
             // current user exists: No need to login again
             SecondFragmentDirections.actionSecondFragmentToThirdFragment(args.position)
             findNavController().popBackStack()
         }
+         */
 
         binding.messageView.text = "Current user ${currentUser?.email}"
         binding.signIn.setOnClickListener {
@@ -66,7 +67,7 @@ class SecondFragment : Fragment() {
             }
             // https://firebase.google.com/docs/auth/android/password-auth
             userViewModel.login(email, password)
-            SecondFragmentDirections.actionSecondFragmentToThirdFragment(args.position)
+            //SecondFragmentDirections.actionSecondFragmentToThirdFragment(args.position)
         }
     }
 

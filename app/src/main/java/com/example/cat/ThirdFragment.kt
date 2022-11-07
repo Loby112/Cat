@@ -1,6 +1,7 @@
 package com.example.cat
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -28,7 +29,8 @@ class ThirdFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_third, container, false)
+        _binding = FragmentThirdBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -37,11 +39,24 @@ class ThirdFragment : Fragment() {
         val thirdFragmentArgs: ThirdFragmentArgs = ThirdFragmentArgs.fromBundle(bundle)
         val position = thirdFragmentArgs.position
         val cat = catViewModel[position]
+        Log.d("APPLE", "observer ${cat?.id}")
         if (cat == null) {
-            binding.textviewMessage.text = "No such book!"
+            binding.textviewMessage.text = "No such cat!"
             return
         }
-
+        binding.catName.text = cat.name
+        binding.catPlace.text = cat.place
+        binding.catDescription.text = cat.description
+        binding.catReward.text = cat.reward.toString()
+        val catDate = cat.date.toLong()
+        val sdf = java.text.SimpleDateFormat("yyyy-MM-dd")
+        val date = java.util.Date(catDate * 1000)
+        binding.catDate.text = sdf.format(date)
 
     }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 }
