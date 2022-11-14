@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_addCatFragment"
+            app:destination="@id/addCatFragment" />
 
     </fragment>
     <fragment
@@ -28,6 +31,9 @@
         <argument
             android:name="position"
             app:argType="integer"/>
+        <action
+            android:id="@+id/action_SecondFragment_to_addCatFragment"
+            app:destination="@id/addCatFragment" />
     </fragment>
     <fragment
         android:id="@+id/third"
@@ -41,4 +47,9 @@
             android:name="position"
             app:argType="integer"/>
     </fragment>
+    <fragment
+        android:id="@+id/addCatFragment"
+        android:name="com.example.cat.AddCatFragment"
+        android:label="fragment_add_cat"
+        tools:layout="@layout/fragment_add_cat" />
 </navigation>

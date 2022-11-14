@@ -107,5 +107,18 @@ class CatRepository {
             }
         })
     }
+    fun sortByReward(){
+        catLiveData.value = catLiveData.value?.sortedBy { it.reward }
+    }
+    fun sortByRewardDescending(){
+        catLiveData.value = catLiveData.value?.sortedByDescending { it.reward }
+    }
+    fun filterByName(name: String){
+        if (name.isBlank()){
+            getPosts()
+        } else{
+            catLiveData.value = catLiveData.value?.filter { cat -> cat.name.contains(name) }
+        }
+    }
 
 }

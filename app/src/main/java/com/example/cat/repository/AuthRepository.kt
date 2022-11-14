@@ -31,4 +31,18 @@ class AuthRepository {
         auth.signOut()
         userLiveData.value = auth.currentUser
     }
+
+    fun createUser(email: String, password: String){
+        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                userLiveData.value = user
+                // Alternative: goto next fragment (no need to login after register)
+            } else {
+                errorMessageLiveData.value = task.exception?.message.toString()
+            }
+        }
+    }
+
+
+
 }

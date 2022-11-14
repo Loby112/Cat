@@ -33,4 +33,13 @@ class CatViewModel: ViewModel() {
     fun update(cat: Cat) {
         repository.update(cat)
     }
+    fun sortByReward(){
+        repository.sortByReward()
+    }
+    fun sortByRewardDescending(){
+        repository.sortByRewardDescending()
+    }
+    fun filterByName(name: String){
+        repository.filterByName(name)
+    }
 }

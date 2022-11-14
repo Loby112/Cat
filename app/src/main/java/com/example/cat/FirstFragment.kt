@@ -12,11 +12,13 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.cat.databinding.FragmentFirstBinding
 import com.example.cat.models.CatViewModel
 import com.example.cat.models.MyAdapter
+import com.example.cat.models.UserViewModel
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
 class FirstFragment : Fragment() {
+    private val userViewModel: UserViewModel by activityViewModels()
 
     private var _binding: FragmentFirstBinding? = null
 
@@ -37,6 +39,7 @@ class FirstFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         catViewModel.catLiveData.observe(viewLifecycleOwner) { cats ->
             //Log.d("APPLE", "observer $cats")
             binding.progressbar.visibility = View.GONE
@@ -59,8 +62,37 @@ class FirstFragment : Fragment() {
 
                 binding.recyclerView.adapter = adapter
             }
-
         }
+
+        binding.fab.setOnClickListener {
+            if (userViewModel.userLiveData.value != null) {
+                findNavController().navigate(R.id.action_FirstFragment_to_addCatFragment)
+            } else {
+                findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+            }
+        }
+        catViewModel.errorMessageLiveData.observe(viewLifecycleOwner) { errorMessage ->
+            binding.textviewMessage.text = errorMessage
+        }
+
+        catViewModel.reload()
+
+        binding.swiperefresh.setOnRefreshListener {
+            catViewModel.reload()
+            binding.swiperefresh.isRefreshing = false
+        }
+        binding.buttonSort.setOnClickListener{
+            when (binding.spinnerSorting.selectedItemPosition){
+                0 -> catViewModel.sortByReward()
+                1 -> catViewModel.sortByRewardDescending()
+            }
+        }
+
+        binding.buttonFilter.setOnClickListener{
+            val name = binding.editTextFilter.text.toString().trim()
+            catViewModel.filterByName(name)
+        }
+
 
     }
 

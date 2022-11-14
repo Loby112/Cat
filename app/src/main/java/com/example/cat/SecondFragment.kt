@@ -43,7 +43,10 @@ class SecondFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val currentUser = userViewModel.userLiveData.value
+        userViewModel.errorMessageLiveData.observe(viewLifecycleOwner) { m ->
+            binding.messageView.text = m
+        }
+
 
         /*if (currentUser != null) {
             //binding.emailInputField.setText(currentUser.email) // half automatic login
@@ -52,8 +55,7 @@ class SecondFragment : Fragment() {
             findNavController().popBackStack()
         }
          */
-
-        binding.messageView.text = "Current user ${currentUser?.email}"
+        // binding.messageView.text = "Current user ${currentUser?.email}"
         binding.signIn.setOnClickListener {
             val email = binding.emailInputField.text.toString().trim()
             val password = binding.passwordInputField.text.toString().trim()
@@ -67,7 +69,26 @@ class SecondFragment : Fragment() {
             }
             // https://firebase.google.com/docs/auth/android/password-auth
             userViewModel.login(email, password)
+            findNavController().popBackStack()
+
             //SecondFragmentDirections.actionSecondFragmentToThirdFragment(args.position)
+        }
+        binding.buttonCreateUser.setOnClickListener {
+            val email = binding.emailInputField.text.toString().trim()
+            val password = binding.passwordInputField.text.toString().trim()
+            if (email.isEmpty()) {
+                binding.emailInputField.error = "No email"
+                return@setOnClickListener
+            }
+            if (password.isEmpty()) {
+                binding.passwordInputField.error = "No password"
+                return@setOnClickListener
+            }
+            userViewModel.createUser(email, password)
+            findNavController().popBackStack()
+
+
+
         }
     }
 

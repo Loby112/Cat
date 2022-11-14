@@ -6,14 +6,23 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cat.R
+import java.text.DateFormat
 
-class MyAdapter<T>(
-    private val items: List<T>,
+class MyAdapter(
+    private val items: List<Cat>,
     private val onItemClicked: (position: Int) -> Unit
 ) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
 
     override fun getItemCount(): Int {
         return items.size
+    }
+
+    fun humanDate(date: Long): String? {
+        val formatter = DateFormat.getDateInstance()
+        if (date != null) {
+            return formatter.format(date * 1000L) // seconds to milliseconds'
+        }
+        return null
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): MyViewHolder {
@@ -28,11 +37,15 @@ class MyAdapter<T>(
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
         viewHolder.textView.text = items[position].toString()
+        viewHolder.textViewCard.text = items[position].name
+        viewHolder.textviewListItemDate.text = humanDate(items[position].date)
     }
 
     class MyViewHolder(itemView: View, private val onItemClicked: (position: Int) -> Unit) :
         RecyclerView.ViewHolder(itemView), View.OnClickListener {
         val textView: TextView = itemView.findViewById(R.id.textview_list_item)
+        val textViewCard: TextView = itemView.findViewById(R.id.textView_cardName)
+        val textviewListItemDate: TextView = itemView.findViewById(R.id.textview_list_item_Date)
 
         init {
             itemView.setOnClickListener(this)

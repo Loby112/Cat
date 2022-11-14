@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".AddCatFragment">
+
+    <TextView
+        android:id="@+id/editText_userId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/editText_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="description"
+        android:inputType="text" />
+    <EditText
+        android:id="@+id/editText_place"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="place"
+        android:inputType="text" />
+    <EditText
+        android:id="@+id/editText_reward"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="reward"
+        android:inputType="number" />
+    <EditText
+        android:id="@+id/editText_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="name"
+        android:inputType="text" />
+    <Button
+        android:id="@+id/createButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create"/>
+
+
+
+
+</LinearLayout>

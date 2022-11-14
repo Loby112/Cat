@@ -9,14 +9,18 @@ import com.google.firebase.auth.FirebaseUser
 
 class UserViewModel: ViewModel() {
     private val repository = AuthRepository()
-    val errorMessageLiveData: MutableLiveData<String> = MutableLiveData()
-    val userLiveData: LiveData<FirebaseUser> = repository.userLiveData
+    val errorMessageLiveData: LiveData<String> = repository.errorMessageLiveData
+    val userLiveData = repository.userLiveData
 
     fun login(email: String, password: String){
         repository.login(email, password)
     }
     fun signout(){
         repository.signout()
+    }
+
+    fun createUser(email: String, password: String){
+        repository.createUser(email, password)
     }
 
 }
