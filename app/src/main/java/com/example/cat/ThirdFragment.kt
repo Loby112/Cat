@@ -56,7 +56,7 @@ class ThirdFragment : Fragment() {
         val sdf = java.text.SimpleDateFormat("yyyy-MM-dd")
         val date = java.util.Date(catDate * 1000)
         binding.catDate.text = sdf.format(date)
-
+        binding.catUserId.text = cat.userId
 
         binding.DeleteButton.setOnClickListener{
             catViewModel.delete(cat.id)
