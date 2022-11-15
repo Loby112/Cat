@@ -13,6 +13,7 @@ class CatRepository {
     private val url = "https://anbo-restlostcats.azurewebsites.net/api/"
     private val catService: CatService
     val catLiveData: MutableLiveData<List<Cat>> = MutableLiveData<List<Cat>>()
+    private var catLiveData2: MutableLiveData<List<Cat>> = MutableLiveData<List<Cat>>()
     val errorMessageLiveData: MutableLiveData<String> = MutableLiveData()
     val updateMessageLiveData: MutableLiveData<String> = MutableLiveData()
 
@@ -34,6 +35,7 @@ class CatRepository {
                     //Log.d("APPLE", response.body().toString())
                     val b: List<Cat>? = response.body()
                     catLiveData.postValue(b!!)
+                    catLiveData2.postValue(b!!)
                     errorMessageLiveData.postValue("")
                 } else {
                     val message = response.code().toString() + " " + response.message()
@@ -113,11 +115,15 @@ class CatRepository {
     fun sortByRewardDescending(){
         catLiveData.value = catLiveData.value?.sortedByDescending { it.reward }
     }
+    fun sortByName(){
+        catLiveData.value = catLiveData.value?.sortedBy { it.name.lowercase() }
+    }
     fun filterByName(name: String){
         if (name.isBlank()){
             getPosts()
         } else{
-            catLiveData.value = catLiveData.value?.filter { cat -> cat.name.contains(name) }
+            catLiveData.value = catLiveData2.value
+            catLiveData.value = catLiveData.value?.filter { cat -> cat.name.startsWith(name, ignoreCase = true) }
         }
     }
 

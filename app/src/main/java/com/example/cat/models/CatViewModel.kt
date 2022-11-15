@@ -9,7 +9,7 @@ class CatViewModel: ViewModel() {
     val catLiveData: LiveData<List<Cat>> = repository.catLiveData
     val errorMessageLiveData: LiveData<String> = repository.errorMessageLiveData
     val updateMessageLiveData: LiveData<String> = repository.updateMessageLiveData
-
+    var catList: LiveData<List<Cat>> = repository.catLiveData
     init {
         reload()
     }
@@ -35,6 +35,9 @@ class CatViewModel: ViewModel() {
     }
     fun sortByReward(){
         repository.sortByReward()
+    }
+    fun sortByName(){
+        repository.sortByName()
     }
     fun sortByRewardDescending(){
         repository.sortByRewardDescending()

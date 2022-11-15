@@ -11,6 +11,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.cat.databinding.FragmentSecondBinding
 import com.example.cat.models.CatViewModel
 import com.example.cat.models.UserViewModel
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -69,7 +70,14 @@ class SecondFragment : Fragment() {
             }
             // https://firebase.google.com/docs/auth/android/password-auth
             userViewModel.login(email, password)
-            findNavController().popBackStack()
+            userViewModel.userLiveData.observe(viewLifecycleOwner){ user ->
+                if (user != null) {
+                    val snack = Snackbar.make(it, "Login Successful", Snackbar.LENGTH_LONG)
+                    snack.show()
+                    findNavController().popBackStack()
+                }
+            }
+
 
             //SecondFragmentDirections.actionSecondFragmentToThirdFragment(args.position)
         }
@@ -85,7 +93,13 @@ class SecondFragment : Fragment() {
                 return@setOnClickListener
             }
             userViewModel.createUser(email, password)
-            findNavController().popBackStack()
+            userViewModel.userLiveData.observe(viewLifecycleOwner){ user ->
+                if (user != null) {
+                    val snack = Snackbar.make(it, "Login Successful", Snackbar.LENGTH_LONG)
+                    snack.show()
+                    findNavController().popBackStack()
+                }
+            }
 
 
 

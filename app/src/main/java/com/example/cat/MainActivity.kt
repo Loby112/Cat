@@ -63,6 +63,7 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.sign_out -> {
                 userViewModel.signout()
+                findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.FirstFragment)
                 true
             }
             else -> super.onOptionsItemSelected(item)

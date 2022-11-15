@@ -7,11 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.cat.databinding.FragmentSecondBinding
 import com.example.cat.databinding.FragmentThirdBinding
 import com.example.cat.models.CatViewModel
 import com.example.cat.models.UserViewModel
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -52,6 +56,18 @@ class ThirdFragment : Fragment() {
         val sdf = java.text.SimpleDateFormat("yyyy-MM-dd")
         val date = java.util.Date(catDate * 1000)
         binding.catDate.text = sdf.format(date)
+
+
+        binding.DeleteButton.setOnClickListener{
+            catViewModel.delete(cat.id)
+            val snack = Snackbar.make(it, "Kat Slettet", Snackbar.LENGTH_LONG)
+            snack.show()
+            findNavController().popBackStack()
+        }
+
+        if(Firebase.auth.currentUser?.uid != cat.userId){
+            binding.DeleteButton.visibility = View.GONE
+        }
 
     }
     override fun onDestroyView() {
